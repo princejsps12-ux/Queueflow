@@ -177,12 +177,21 @@ Analytics response shape:
 
 ## Screenshots
 
-_Add screenshots of the running app here, e.g.:_
+### Login
 
-- `docs/screenshots/login.png` — Login screen
-- `docs/screenshots/queues.png` — Queues list
-- `docs/screenshots/queue-detail.png` — Queue detail with Now Serving + waiting list
-- `docs/screenshots/dashboard.png` — Analytics dashboard
+![Login screen](docs/screenshots/login.png)
+
+### Queues list
+
+![Queues list](docs/screenshots/queues.png)
+
+### Queue detail — Now Serving + waiting list
+
+![Queue detail](docs/screenshots/queue-detail.png)
+
+### Analytics dashboard
+
+![Analytics dashboard](docs/screenshots/dashboard.png)
 
 ## Git Hygiene
 
