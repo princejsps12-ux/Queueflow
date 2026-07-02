@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Manager {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  createdAt    DateTime @default(now())
+
+  queues Queue[]
+}
+
+model Queue {
+  id        String   @id @default(cuid())
+  name      String
+  managerId String
+  createdAt DateTime @default(now())
+
+  manager Manager @relation(fields: [managerId], references: [id], onDelete: Cascade)
+  tokens  Token[]
+
+  @@index([managerId])
+}
+
+// SQLite has no native enum support in Prisma; status is a String constrained
+// to WAITING | SERVING | SERVED | CANCELLED and validated in application code.
+model Token {
+  id          String    @id @default(cuid())
+  queueId     String
+  tokenNumber Int
+  personName  String?
+  position    Int
+  status      String    @default("WAITING")
+  createdAt   DateTime  @default(now())
+  servedAt    DateTime?
+  cancelledAt DateTime?
+
+  queue Queue @relation(fields: [queueId], references: [id], onDelete: Cascade)
+
+  @@index([queueId])
+  @@index([queueId, status])
+}
